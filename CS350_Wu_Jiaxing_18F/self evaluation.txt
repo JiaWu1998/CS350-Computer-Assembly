@@ -1,0 +1,7 @@
+Self Evaluation
+
+-For all decimal inputs, if user inputs something that is not a decimal the program doesn't crash but it would just interpret that input as 0 and doesn't output an error message.
+
+-For the DECTOHEX function, I forgot to reset so the program will crash after a function after that is run.
+
+-After any HEXTo something conversion, the dividers disappear.

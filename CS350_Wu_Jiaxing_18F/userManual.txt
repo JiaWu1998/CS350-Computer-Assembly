@@ -1,0 +1,19 @@
+USER'S MANUAL FOR THE CALCULTOR
+
+-How to select options
+1.Enter the number that each option is assigned to select that option
+2.Press 'enter' to confirm
+
+-How to use the convert binary to decimal option or convert binary to hexadecimal option
+1.Enter 32 binary numbers 
+2.Press 'enter' to confirm
+
+-How to use the convert decimal to binary option or convert decimal to hexadecimal option
+1.Enter a integer
+2.Press 'enter' to confirm
+
+-How to use the convert hexadecimal to decimal option
+1.Enter the length of hexadecimal(max length is 8) 
+2.Press 'enter' to confirm
+3.Enter a hexadecimal using uppercase characters(A,B,C,D,E,F) and numbers(0,1,2,3,4,5,6,7,8,9)
+4.Press 'enter' to confirm
