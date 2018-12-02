@@ -1,0 +1,155 @@
+-Main Memory == RAM
+
+-Compilation (for different Programming Languages)
+code -> compiler compiles with processor's ISA(instruction set architeture) -> .exe file (in machine language)
+
+-ISA(instruction set architeture)
+*Basic Idea: Different family processors have different ISA. When compiler translates code to machine language, it is converting 
+it to bits which the machine understands. However, to compute the processor(which has the computing power) must understand 
+the bit instruction. EX: CPU1 family's ISA might have 01011 as an instruction for 'add' but CPU2 family's ISA might 
+have 11010 for 'add'. Therefore a program that is compiled with CPU1's ISA can not be read with CPU2's ISA.
+
+-Java compiles into BI Code but not machine code. Each processor have a JVM that the BI Code can be converted into the machine code 
+with the processor's ISA. That is why Java is compatible a lot of processors/platform 
+//java is not doing direct translation from code to machine language but it is code to java BI code. The rest is up to the specific JVM system.
+//though java is a compile language, it is more like a interpret language, that's why java is slow compare to another interpret language like C++
+
+-machine code for arthemtic 
+*High Level language: A + B 
+*Low Level language: Add A,B 
+*Machine language: 1000110010100000 -> DOES NOT use value of A and B but it uses the BYTE ADDRESS of A and B
+//machines like be simple so operator is before the operand(it's more complex to go operand to operator and back to operand)
+
+-when you create variables in code, the main memory doesn't know the which space is which variable
+
+code
+var a = 7;
+------------------
+main memory
+[10101 00111] // 00111 is the value 7 and 10101 is the location address(techincally called BYTE ADDRESS) of "a" 
+-for the var addresses, it is converted to ordered numbers
+**Vars can only be stored in main memory because it store the data and the BYTE ADDRESS and that is too much memory for the CPU because 
+the CPU registers have very little memory
+
+**The registers in CPU also have addresses 
+-depending on the ISA of the CPU, these addresses have are stored in different number of bits
+
+-Response Time and Throughput
+Response Time is how fast one task can be done (U can get faster Response time with faster processor)
+Throughput is total work(amount of task) that can be done in a unit time(U can get higher throughput by adding more processors)
+
+-MIPS
+get/sent is by CPU(from CPU register)
+load => means get data from main memory (takes more cycles to complete instruction because you need to complete an operation) !!! also pops the stack 
+save => means sent data to main memory (takes less cycles to complete instruciton because you dont need to complete an operation) !!! also pushs the stack
+*Generally, accessing the main memory takes more time
+
+-Big Endian vs Little Endian
+reading bits left to right(Big Endian) or reading bits right to left(Little Endian)
+
+-getting from array element in assembly language
+array A;
+
+get A[3];
+
+A[0]   <------- base address is $5000
+-----
+A[1]
+-----
+A[2]
+-----
+A[3]   <------ address is $5032
+-----
+A[4]
+
+**offset = index * 4 (because it is a 4 byte thing) ----> accurate offset = index * bytes per instruction/data space
+in assembly code, 32 is offset 
+32($5000) = a[3] --------> other ex: if I want A[4].offset is 4 * 4 = 16. Then, A[4] = 16($5000)
+
+**In the MIPS architeture, all instructions and data are stored in a "word" or a 32-bit or 4 bytes space 
+** A byte is equal to 8 bits
+
+** All different language architeture, they each use different bytes per instruciton/data space in the main memory
+
+- lw instruction = load word in MIPS ---------
+ex: lw $t0 , 32($s) => lw target , getfrom   |
+                                             |----> instruction register, main memory address    
+-sw instruction = store word in MIPS----------
+ex: sw $t0 , 48($s) => lw sentfrom , target
+
+-arthemtic instrucitons in MIPS(assembly language) MUST use registers and NOT addresses from main memory because
+arthemtic instruciton are processed in the processor because the ALUs are located there!!!!!! why go from processor to main memory just to make one calculation(so much work) 
+
+
+**MEMORY
+______________________________
+            |
+            V
+        Stack grows this way when data is added(this is the top of the stack)
+
+
+
+            ^
+            |
+        Dynamic data(heap) grows this way when new objects are added(like in java)(this is the top of the heap)
+______________________________
+Static data(global variables)
+______________________________
+Text(binary/machine language transformed from R or I format)
+PC(program counter)-->______________________________ 
+Reversed 
+______________________________
+
+-Parity bit 
+Odd parity bit is the extra bit that is added to a binary string that makes the number of 1s odd
+Even parity bit is the extra bit that is added to a binary string that makes the number of 1s Even
+Why?? To trouble shoot 
+If there are any influences that accidentally change one of the bits in the binary string, it can check the parity bit
+EX:if it is odd parity
+1001000 ----odd parity added --> 11001000 ----> transport data to any computer ---> accident ____>
+one of the bits got changes ---> 11001100 ----> the second computer can check the string and say there's a 
+error cause the parity bit. 
+
+-Jump instructions
+So why does jumping instructions have to store the next instruction as a return address instead of the current one
+this is because the program counter is impatient and it already pointing to the next instruction when the computer is processing the current instruction
+
+-Branching instructions
+-the target address of the jump = PC address + (offset in instruction * 4)
+
+-No condition jumping instruction
+-the target address of the jump = address in instruction * 4
+
+*Memory fact: a storage room in RAM(memory) is 1 byte and a storage room in MIPS architecture is 4 bytes
+
+key exam instruction fact: if the first six bits are 0, then it is a R-format instruction
+
+-FLOATING POINTS
+order->MSB = sign number-> exponent -> fraction
+
+conversion from decimal to binary(this is for 8-bit width)
+ex:  0    1    0    0    1    0    1    0 
+-------------------------------------------
+    bin1 bin2 bin3 bin4 bin5 bin6 bin7 bin8
+----------------------------------------
+k is the number of bits for the exponent!!!!!!!
+bias = (2^(k-1)))-1
+bias = 3 (for 8-bit width)
+exp or exponent = bin2 bin3 bin4 or 100 in the ex
+                            default 1
+                                |
+                                V
+The thing below is (-1)^(bin1)*(1.1010)*2^((100)-(011)) = decimal number
+————————————
+(-1)^bin1 * 
+(1 * 2^(exp-bias)+
+.5  * 2^(exp-bias) * bin5+
+.25 * 2^(exp-bias) * bin6 +
+.125  * 2^(exp-bias) * bin7+
+0.0625 * 2^(exp-bias) * bin8)
+= decimal number
+————————————— 
+**Note: some decimal numbers can't be reached, just get as close as possible to the decimal number 
+WITHOUT OVER ESTIMATING IT
+
+-For 
