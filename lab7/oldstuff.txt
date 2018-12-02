@@ -1,0 +1,337 @@
+.data
+    msgGetX: .asciiz "Enter a integer for x:"
+    msgGetY: .asciiz "Enter a integer for y:"
+    msgGotNeg: .asciiz "You entered a negative, enter again.\n"
+    msgAckerMan: .asciiz "ACKERMANN OUTPUT: "
+.text
+.globl main
+    main:
+        # jal CHECKNEG
+        # manual x,y
+        li $t0, 1
+        li $t1, 8 
+        # manual x,y
+        move $t9, $sp
+        jal ACKERMANN
+        la $a0, msgAckerMan
+        li $v0, 4
+        syscall
+        move $a0, $t1
+        li $v0, 1 
+        syscall
+        li $v0, 10 
+        syscall
+        # CHECKNEG:
+        #     la $a0, msgGetX
+        #     li $v0, 4
+        #     syscall
+        #     li $v0, 5
+        #     syscall
+        #     move $t0, $v0 
+        #     blt $t0, 0, ENTEREDNEGMES
+        #     la $a0, msgGetY
+        #     li $v0, 4
+        #     syscall
+        #     li $v0, 5
+        #     syscall
+        #     move $t1, $v0
+        #     blt $t1, 0, ENTEREDNEGMES
+        #     j $ra
+        # ENTEREDNEGMES:
+        #     la $a0, msgGotNeg
+        #     li $v0, 4
+        #     syscall
+        #     j CHECKNEG
+        ACKERMANN:
+            sw $ra, 0($sp)
+            sw $t0, 4($sp)
+            sw $t1, 8($sp)
+            sw $t2, 12($sp)
+            addi $sp, $sp, -16
+        FIRSTCONDITION:
+            bne $t0, 0, SECONDCONDITION
+            addi $t1, $t1, 1
+            # addi $sp, $sp, 32
+            # lw $ra, 0($sp)
+            addi $sp, $sp, 16
+            j $ra
+        SECONDCONDITION:
+            bne $t1, 0, THIRDCONDITION
+            sub $t0, $t0, 1
+            li $t1, 1
+            j ACKERMANN
+        THIRDCONDITION:
+            move $t2, $t0
+            sub $t0, $t0, 1
+            jal ACKERMANN
+
+            addi $sp, $sp, 16
+            lw $ra, 0($sp)
+            lw $t2, 8($sp)
+            lw $t0, 12($sp)
+            j ACKERMANN
+
+
+
+            only works for (1,y)
+            not (x,y)
+
+
+
+
+
+
+
+
+
+
+            ???????
+            .data
+    msgGetX: .asciiz "Enter a integer for x:"
+    msgGetY: .asciiz "Enter a integer for y:"
+    msgGotNeg: .asciiz "You entered a negative, enter again.\n"
+    msgAckerMan: .asciiz "ACKERMANN OUTPUT: "
+.text
+.globl main
+    main:
+        # jal CHECKNEG
+        # manual x,y
+        li $t0, 2
+        li $t1, 1 
+        # manual x,y
+        move $t9, $sp
+        jal ACKERMANN
+        la $a0, msgAckerMan
+        li $v0, 4
+        syscall
+        move $a0, $t1
+        li $v0, 1 
+        syscall
+        li $v0, 10 
+        syscall
+        # CHECKNEG:
+        #     la $a0, msgGetX
+        #     li $v0, 4
+        #     syscall
+        #     li $v0, 5
+        #     syscall
+        #     move $t0, $v0 
+        #     blt $t0, 0, ENTEREDNEGMES
+        #     la $a0, msgGetY
+        #     li $v0, 4
+        #     syscall
+        #     li $v0, 5
+        #     syscall
+        #     move $t1, $v0
+        #     blt $t1, 0, ENTEREDNEGMES
+        #     j $ra
+        # ENTEREDNEGMES:
+        #     la $a0, msgGotNeg
+        #     li $v0, 4
+        #     syscall
+        #     j CHECKNEG
+        ACKERMANN:
+            sw $ra, 0($sp)
+            sw $t0, 4($sp)
+            sw $t1, 8($sp)
+            sw $t2, 12($sp)
+            addi $sp, $sp, -16
+        FIRSTCONDITION:
+            bne $t0, 0, SECONDCONDITION
+            addi $t1, $t1, 1
+            # addi $sp, $sp, 32
+            # lw $ra, 0($sp)
+            addi $sp, $sp, 16
+            j $ra
+        SECONDCONDITION:
+            bne $t1, 0, THIRDCONDITION
+            sub $t0, $t0, 1
+            # maybe need
+            move $t2, $t0
+            # 
+            li $t1, 1
+            j ACKERMANN
+        THIRDCONDITION:
+            move $t2, $t0
+            sub $t2, $t2, 1
+            sub $t1, $t1, 1
+            jal ACKERMANN
+
+            addi $sp, $sp, 16
+            lw $ra, 0($sp)
+            lw $t0, 12($sp)
+            lw $t2, 4($sp)
+            j ACKERMANN
+
+
+            sooo close
+
+
+
+
+
+            VERY CLOSE 
+            .data
+    msgGetX: .asciiz "Enter a integer for x:"
+    msgGetY: .asciiz "Enter a integer for y:"
+    msgGotNeg: .asciiz "You entered a negative, enter again.\n"
+    msgAckerMan: .asciiz "ACKERMANN OUTPUT: "
+.text
+.globl main
+    main:
+        # jal CHECKNEG
+        # manual x,y
+        li $t0, 2
+        li $t1, 1 
+        # manual x,y
+        move $t9, $sp
+        jal ACKERMANN
+        la $a0, msgAckerMan
+        li $v0, 4
+        syscall
+        move $a0, $t1
+        li $v0, 1 
+        syscall
+        li $v0, 10 
+        syscall
+        # CHECKNEG:
+        #     la $a0, msgGetX
+        #     li $v0, 4
+        #     syscall
+        #     li $v0, 5
+        #     syscall
+        #     move $t0, $v0 
+        #     blt $t0, 0, ENTEREDNEGMES
+        #     la $a0, msgGetY
+        #     li $v0, 4
+        #     syscall
+        #     li $v0, 5
+        #     syscall
+        #     move $t1, $v0
+        #     blt $t1, 0, ENTEREDNEGMES
+        #     j $ra
+        # ENTEREDNEGMES:
+        #     la $a0, msgGotNeg
+        #     li $v0, 4
+        #     syscall
+        #     j CHECKNEG
+        ACKERMANN:
+            beq $t3, 1, THIRDRUN
+            j CONTINUE
+        THIRDRUN:
+            beq $t3, 
+            sub $t3, $t3, 1 
+            addi $sp, $sp, 16
+            lw $ra, 0($sp)
+        CONTINUE:
+            sw $ra, 0($sp)
+            sw $t0, 4($sp)
+            sw $t1, 8($sp)
+            sw $t2, 12($sp)
+            addi $sp, $sp, -16
+        FIRSTCONDITION:
+            bne $t0, 0, SECONDCONDITION
+            addi $t1, $t1, 1
+            # addi $sp, $sp, 32
+            # lw $ra, 0($sp)
+            addi $sp, $sp, 16
+            j $ra
+        SECONDCONDITION:
+            bne $t1, 0, THIRDCONDITION
+            sub $t0, $t0, 1
+            # maybe need
+            move $t2, $t0
+            # 
+            li $t1, 1
+            j HERE
+        THIRDCONDITION:
+            move $t2, $t0
+            sub $t2, $t2, 1
+            sub $t1, $t1, 1
+            li $t3, 1
+        HERE:
+            jal ACKERMANN
+
+            addi $sp, $sp, 16
+            lw $ra, 0($sp)
+            lw $t0, 12($sp)
+            lw $t2, 4($sp)
+            j ACKERMANN
+
+
+
+
+    latest SAVE 
+    .data
+    msgGetX: .asciiz "Enter a integer for x:"
+    msgGetY: .asciiz "Enter a integer for y:"
+    msgGotNeg: .asciiz "You entered a negative, enter again.\n"
+    msgAckerMan: .asciiz "ACKERMANN OUTPUT: "
+.text
+.globl main
+    main:
+        # jal CHECKNEG
+        # manual x,y
+        li $t0, 3
+        li $t1, 1 
+        # manual x,y
+        move $t9, $sp
+        jal ACKERMANN
+        la $a0, msgAckerMan
+        li $v0, 4
+        syscall
+        move $a0, $t1
+        li $v0, 1 
+        syscall
+        li $v0, 10 
+        syscall
+        # CHECKNEG:
+        #     la $a0, msgGetX
+        #     li $v0, 4
+        #     syscall
+        #     li $v0, 5
+        #     syscall
+        #     move $t0, $v0 
+        #     blt $t0, 0, ENTEREDNEGMES
+        #     la $a0, msgGetY
+        #     li $v0, 4
+        #     syscall
+        #     li $v0, 5
+        #     syscall
+        #     move $t1, $v0
+        #     blt $t1, 0, ENTEREDNEGMES
+        #     j $ra
+        # ENTEREDNEGMES:
+        #     la $a0, msgGotNeg
+        #     li $v0, 4
+        #     syscall
+        #     j CHECKNEG
+         ACKERMANN:
+            addi $t8, $t8, 1
+            sub $sp, $sp, 8 
+            sw $t2, 4($sp)
+            sw $ra, 0($sp)
+
+            beq $t0, 0, FIRSTCONDITION
+            beq $t1, 0, SECONDCONDITION
+            j THIRDCONDITION
+        FIRSTCONDITION:
+            addi $t3, $t1,1
+            j GOBACK
+        SECONDCONDITION: 
+            sub $t0, $t0, 1
+            li $t1, 1
+            jal ACKERMANN
+            j GOBACK
+        THIRDCONDITION:
+            move $t2, $t0 
+            sub $t1, $t1, 1
+            jal ACKERMANN
+            move $t1, $t3
+            sub $t0, $t2, 1
+            jal ACKERMANN
+        GOBACK:
+            lw $t2, 4($sp)
+            lw $ra, 0($sp)
+            addi $sp, $sp 8
+            j $ra
